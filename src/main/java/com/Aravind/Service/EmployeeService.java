@@ -2,7 +2,6 @@ package com.Aravind.Service;
 
 import com.Aravind.Model.Employee;
 import com.Aravind.Repo.EmployeeRepo;
-//import com.Aravind.Repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -22,7 +21,7 @@ public class EmployeeService {
     }
 
     public Employee getById(int id) {
-        return repo.findByEmpId(id); // Use the custom method
+        return repo.findByEmpId(id); 
     }
 
     public String deleteEmployee(int id) {

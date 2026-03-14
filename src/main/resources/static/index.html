@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="formBox">
+    <h2>Employee Management</h2>
+    <input type="number" id="eid" placeholder="ID">
+    <input type="text" id="ename" placeholder="Name">
+    <input type="text" id="email" placeholder="Email">
+    <input type="text" id="loc" placeholder="Location">
+
+    <div class="buttonGroup">
+        <button class="btn-add" onclick="addEmployee()">Add Employee</button>
+        <button class="btn-view" onclick="viewAll()">View All</button>
+    </div>
+</div>
+
+<table id="empTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Location</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    const API_URL = '/employees';
+
+    async function addEmployee() {
+        const emp = {
+            empId: parseInt(document.getElementById('eid').value),
+            empName: document.getElementById('ename').value,
+            empEmailId: document.getElementById('email').value,
+            empLocation: document.getElementById('loc').value
+        };
+
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(emp)
+        });
+        alert("Success!");
+        document.querySelectorAll('input').forEach(i => i.value = ''); // Clear form
+    }
+
+    async function viewAll() {
+        const res = await fetch(`${API_URL}/displayAll`);
+        const data = await res.json();
+        const tbody = document.querySelector("#empTable tbody");
+        tbody.innerHTML = "";
+        data.forEach(e => {
+            tbody.innerHTML += `<tr><td>${e.empId}</td><td>${e.empName}</td><td>${e.empEmailId}</td><td>${e.empLocation}</td></tr>`;
+        });
+    }
+</script>
+</body>
+</html>

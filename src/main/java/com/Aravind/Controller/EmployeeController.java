@@ -13,25 +13,21 @@ public class EmployeeController {
     @Autowired
     private EmployeeService service;
 
-    // POST: For adding via the form
     @PostMapping
     public Employee add(@RequestBody Employee emp) {
         return service.saveEmployee(emp);
     }
 
-    // GET: For the "View All" button
     @GetMapping("/displayAll")
     public List<Employee> viewAll() {
         return service.getAll();
     }
 
-    // GET: URL based Find (localhost:8080/employees/display/101)
     @GetMapping("/display/{id}")
     public Employee findOne(@PathVariable int id) {
         return service.getById(id);
     }
 
-    // DELETE: URL based Delete (localhost:8080/employees/delete/101)
     @GetMapping("/delete/{id}")
     public String deleteById(@PathVariable int id) {
         return service.deleteEmployee(id);
